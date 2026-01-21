@@ -27,7 +27,8 @@
     "r": "./build/bin/release",
     "w": "./build/bin/web-release",
     "t": "./node_modules/.bin/electron work/app/app.js",
-    "lock": "npm i --package-lock-only"
+    "lock": "npm i --package-lock-only",
+    "win": "node build/bin/build-win-nsis.js"
   },
   "license": "MIT",
   "langugeRepo": "https://github.com/electerm/electerm-locales",
