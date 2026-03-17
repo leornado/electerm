@@ -61,10 +61,10 @@ export function createTitleTag (obj) {
   )
 }
 
-export function createTitleWithTag (obj) {
+export function createTitleWithTag (obj, index) {
   return (
     <span className='tab-title'>
-      {createTitleTag(obj)} {createTitle(obj)}
+      {createTitleTag(obj)} {obj.title} [{index}]
     </span>
   )
 }

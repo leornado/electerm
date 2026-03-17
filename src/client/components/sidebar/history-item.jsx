@@ -17,7 +17,7 @@ export default function HistoryItem (props) {
     }
     timeoutRef.current = setTimeout(() => {
       store.onSelectHistory(item.tab)
-      if (tab.isHistoryTab)
+      if (tab?.isHistoryTab)
         window.store.delTab(tab.id)
     }, 10)
   }, [item.tab])
@@ -34,7 +34,7 @@ export default function HistoryItem (props) {
     e.stopPropagation()
     store.history.splice(index, 1)
   }
-  const title = createTitleWithTag(item.tab)
+  const title = createTitleWithTag(item.tab, item.count)
   const tt = createTitle(item.tab)
   return (
     <div
