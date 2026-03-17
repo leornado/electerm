@@ -13,6 +13,7 @@ export default auto(function HistoryPanel (props) {
   const {
     history
   } = store
+  const {tab} = props;
   const arr = props.sort
     ? [...history].sort((a, b) => { return b.count - a.count })
     : history
@@ -28,6 +29,7 @@ export default auto(function HistoryPanel (props) {
                 key={item.id}
                 index={i}
                 item={item}
+                tab={tab}
               />
             )
           })

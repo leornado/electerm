@@ -6,7 +6,8 @@ export default function HistoryItem (props) {
   const { store } = window
   const {
     item,
-    index
+    index,
+    tab
   } = props
   const timeoutRef = useRef(null)
 
@@ -16,6 +17,8 @@ export default function HistoryItem (props) {
     }
     timeoutRef.current = setTimeout(() => {
       store.onSelectHistory(item.tab)
+      if (tab.isHistoryTab)
+        window.store.delTab(tab.id)
     }, 10)
   }, [item.tab])
 

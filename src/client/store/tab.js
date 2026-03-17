@@ -310,12 +310,17 @@ export default Store => {
   Store.prototype.addTab = function (
     newTab = newTerm(),
     index,
-    batch
+    batch,
+    isHistoryTab
   ) {
     const { store } = window
     const { tabs } = store
     newTab.tabCount = store.nextTabCount()
     newTab.batch = batch ?? newTab.batch ?? window.openTabBatch ?? window.store.currentLayoutBatch
+    if (isHistoryTab) {
+      newTab.isHistoryTab = true
+      newTab.title = 'new session'
+    }
     if (typeof index === 'number' && index >= 0 && index <= tabs.length) {
       tabs.splice(index, 0, newTab)
     } else {
@@ -451,7 +456,7 @@ export default Store => {
 
   Store.prototype.updateHistory = function (tab) {
     if (
-      !tab.type &&
+      (!tab.type || tab.isHistoryTab) &&
       !tab.host
     ) {
       return

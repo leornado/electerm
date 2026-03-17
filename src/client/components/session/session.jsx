@@ -36,6 +36,7 @@ import { SplitViewIcon } from '../icons/split-view'
 import { refs } from '../common/ref'
 import safeName from '../../common/safe-name'
 import './session.styl'
+import HistoryPanel from "../sidebar/history";
 
 const e = window.translate
 const SplitterPane = Splitter.Panel
@@ -783,6 +784,7 @@ export default class SessionWrapper extends Component {
   }
 
   render () {
+    const { tab } = this.props
     const { pane } = this.props.tab
     const cls = classnames(
       'term-sftp-box',
@@ -802,7 +804,10 @@ export default class SessionWrapper extends Component {
       onDragEnd: this.onDragEnd,
       onClick: this.handleClick
     }
+    const isHistoryTab = tab?.isHistoryTab ?? false;
     return (
+      isHistoryTab ?
+      <HistoryPanel sort tab={tab} /> :
       <div
         ref={this.domRef}
         {...divProps}

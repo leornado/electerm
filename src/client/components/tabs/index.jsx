@@ -123,11 +123,18 @@ export default class Tabs extends Component {
     )
   }
 
-  handleTabAdd = () => {
+  handleTabAdd = (isHistoryTab) => {
     window.store.addTab(
       undefined, undefined,
-      this.props.batch
+      this.props.batch,
+      isHistoryTab === true
     )
+  }
+
+  handleTabHistoryAdd = () => {
+    const { tabs = [] } = this.props
+    const isHistoryTab = tabs.length > 0;
+    this.handleTabAdd(isHistoryTab);
   }
 
   adjustScroll = () => {
@@ -236,7 +243,7 @@ export default class Tabs extends Component {
         <PlusOutlined
           title={e('openNewTerm')}
           className={cls}
-          onClick={this.handleTabAdd}
+          onClick={this.handleTabHistoryAdd}
         />
       </Popover>
     )
