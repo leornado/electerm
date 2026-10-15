@@ -11,14 +11,14 @@ export function getRandomHexColor () {
 }
 
 export const defaultColors = [
-  '#0366d6',
-  '#28a745',
-  '#d73a49',
-  '#ffab4a',
-  '#ffd33d',
-  '#6f42c1',
-  '#e99695',
-  '#24292e',
+  '#78e5ff',
+  '#00ff00',
+  '#ff0000',
+  '#ff8a00',
+  '#ffff00',
+  '#ae81ff',
+  '#ff00d6',
+  '#ffffff',
   '#6a737d'
 ]
 

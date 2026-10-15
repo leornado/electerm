@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 import createTitle, { createTitleWithTag } from '../../common/create-title'
 import { DeleteOutlined } from '@ant-design/icons'
+import {auto} from "manate/react";
 
-export default function HistoryItem (props) {
+export default auto(function HistoryItem (props) {
   const { store } = window
   const {
     item,
-    index,
     tab
   } = props
   const timeoutRef = useRef(null)
@@ -32,7 +32,11 @@ export default function HistoryItem (props) {
 
   function handleDelete (e) {
     e.stopPropagation()
-    store.history.splice(index, 1)
+    const index = store.history.findIndex(d => {
+      return d === item
+    })
+    if (index >= 0)
+      store.history.splice(index, 1)
   }
   const title = createTitleWithTag(item.tab, item.count)
   const tt = createTitle(item.tab)
@@ -43,7 +47,7 @@ export default function HistoryItem (props) {
       onClick={handleClick}
     >
       <div className='elli pd1y pd2x'>
-        {title}
+        {title}{/* - {item.id} - {item.tab.srcId}*/}
       </div>
       <DeleteOutlined
         className='list-item-edit'
@@ -51,4 +55,4 @@ export default function HistoryItem (props) {
       />
     </div>
   )
-}
+})

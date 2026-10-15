@@ -260,6 +260,9 @@ export default class BookmarkForm extends PureComponent {
       delete window.openTabBatch
       this.props.hide()
     }
+
+    if (evt.indexOf('save') >= 0)
+      this.props.store.updateHistoryBySave(obj)
   }
 
   getProps = () => {

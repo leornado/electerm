@@ -454,7 +454,37 @@ export default Store => {
     store.focus()
   }
 
-  Store.prototype.updateHistory = function (tab) {
+  Store.prototype.updateHistoryBySave = function (item) {
+    if (!item) return;
+
+    const tabPropertiesExcludes = [
+      'id',
+      'from',
+      // 'srcId',
+      'status',
+      'pane',
+      'batch',
+      'tabCount',
+      'sftpCreated',
+      'sshSftpSplitView',
+      'sshTunnelResults',
+      'displayRaw'
+    ].reduce((prev, curr) => {
+      prev[curr] = true;
+      return prev;
+    }, {});
+    const { history } = store
+    history.forEach(d => {
+      if (d.tab.srcId !== item.id) return;
+
+      for (let k in item) {
+        if (tabPropertiesExcludes[k]) continue;
+        d.tab[k] = deepCopy(item[k]);
+      }
+    })
+  }
+
+  Store.prototype.updateHistory = function (tab, srcBookmark) {
     if (
       (!tab.type || tab.isHistoryTab) &&
       !tab.host
@@ -468,7 +498,7 @@ export default Store => {
     const tabPropertiesExcludes = [
       'id',
       'from',
-      'srcId',
+      // 'srcId',
       'status',
       'pane',
       'batch',
@@ -480,15 +510,16 @@ export default Store => {
     ]
     const { history } = store
     const index = history.findIndex(d => {
-      for (const key in tab) {
-        if (tabPropertiesExcludes.includes(key)) {
-          continue
-        }
-        if (!isEqual(d.tab[key], tab[key])) {
-          return false
-        }
-      }
-      return true
+      // for (const key in tab) {
+      //   if (tabPropertiesExcludes.includes(key)) {
+      //     continue
+      //   }
+      //   if (!isEqual(d.tab[key], tab[key])) {
+      //     return false
+      //   }
+      // }
+      // return true
+      return d.tab.srcId === tab.srcId
     })
     if (index === -1) {
       const copiedTab = deepCopy(tab)
