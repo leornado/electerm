@@ -15,8 +15,11 @@ export default auto(function HistoryPanel (props) {
   } = store
   const {tab} = props;
   const arr = props.sort
-    ? [...history].sort((a, b) => { return b.count - a.count })
-    : history
+    ? [...history].sort((a, b) => {
+      const nameSort = a.tab.title.localeCompare(b.tab.title);
+      return nameSort === 0 ? b.count - a.count : nameSort;
+    })
+    : history;
   return (
     <div
       className='sidebar-panel-history'
